@@ -1,0 +1,62 @@
+openapi: '3.0.2'
+info:
+  title: Gateway-API
+  version: "0.1"
+servers:
+  - url: http://localhost:8082
+paths:
+  /stores/{storeId}/orders:
+    post:
+      summary: Submits a new product order
+      parameters:
+        - name: storeId
+          description: The id of the store
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/storeId"
+      requestBody:
+          description: The order to pe placed
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/submitedOrder"
+      responses:
+        '201':
+          description: A JSON object containing the product order
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/productOrder"
+
+
+components:
+  schemas:
+    storeId:
+      type: integer
+      example: 200
+
+    productOrder:
+      type: object
+      properties:
+        id:
+          type: integer
+        amount:
+          type: integer
+        productId:
+          type: integer
+        productOrderId:
+          type: integer
+
+    submitedOrder:
+      type: object
+      properties:
+        amount:
+          type: integer
+        productId:
+          type: integer
+      example:
+        amount: 100
+        productId: 100
+      
